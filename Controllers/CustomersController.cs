@@ -4,26 +4,26 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieRentalsAPI.Controllers.Dtos;
+using MovieRentalsAPI.Core;
 using MovieRentalsAPI.Core.Models;
-using MovieRentalsAPI.Persistence;
 
 namespace MovieRentalsAPI.Controllers
 {
     [Route("/api/customers")]
     public class CustomersController : ControllerBase
     {
-        private readonly MovieRentalsDbContext _context;
+        private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
-        public CustomersController(MovieRentalsDbContext context, IMapper mapper)
+        public CustomersController(ICustomerRepository repository, IMapper mapper)
         {
             this._mapper = mapper;
-            this._context = context;
+            this._repository = repository;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CustomerDto>> GetAll()
         {
-            var customers = await _context.Customers.ToListAsync();
+            var customers = await _repository.GetAll();
             return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDto>>(customers);
         }
     }

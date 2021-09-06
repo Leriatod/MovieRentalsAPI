@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MovieRentalsAPI.Core;
 using MovieRentalsAPI.Persistence;
 
 namespace MovieRentalsAPI
@@ -28,7 +29,8 @@ namespace MovieRentalsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MovieRentalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddDbContext<MovieRentalsDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>

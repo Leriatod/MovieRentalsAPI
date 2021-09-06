@@ -9,5 +9,6 @@ namespace MovieRentalsAPI.Core
         Task<IEnumerable<Customer>> GetAll();
         Task<Customer> Get(int id);
         void Delete(Customer customer);
+        void Add(Customer customer);
     }
 }

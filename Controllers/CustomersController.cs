@@ -39,12 +39,28 @@ namespace MovieRentalsAPI.Controllers
         public async Task<IActionResult> Remove(int id)
         {
             var customer = await _repository.Get(id);
-            if (customer == null) return BadRequest();
+            if (customer == null) return NotFound();
 
             _repository.Delete(customer);
             await _unitOfWork.CompleteAsync();
 
             return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CustomerDto customerDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customer = _mapper.Map<CustomerDto, Customer>(customerDto);
+
+            _repository.Add(customer);
+            await _unitOfWork.CompleteAsync();
+
+            customer = await _repository.Get(customer.Id);
+
+            return Ok(_mapper.Map<Customer, CustomerDto>(customer));
         }
     }
 }

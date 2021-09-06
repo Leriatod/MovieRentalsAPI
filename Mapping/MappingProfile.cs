@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using MovieRentalsAPI.Controllers.Dtos;
 using MovieRentalsAPI.Core.Models;
@@ -9,6 +10,12 @@ namespace MovieRentalsAPI.Mapping
         public MappingProfile()
         {
             CreateDomainToDtosMappings();
+            CreateDtosToDomainMappings();
+        }
+
+        private void CreateDtosToDomainMappings()
+        {
+            CreateMap<CustomerDto, Customer>();
         }
 
         private void CreateDomainToDtosMappings()

@@ -11,7 +11,12 @@ namespace MovieRentalsAPI.Persistence
         private readonly MovieRentalsDbContext _context;
         public CustomerRepository(MovieRentalsDbContext context)
         {
-            this._context = context;
+            _context = context;
+        }
+
+        public void Add(Customer customer)
+        {
+            _context.Add(customer);
         }
 
         public void Delete(Customer customer)

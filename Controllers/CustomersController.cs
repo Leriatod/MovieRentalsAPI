@@ -13,10 +13,12 @@ namespace MovieRentalsAPI.Controllers
     {
         private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
-        public CustomersController(ICustomerRepository repository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public CustomersController(ICustomerRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
         {
-            this._mapper = mapper;
-            this._repository = repository;
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _repository = repository;
         }
 
         [HttpGet]
@@ -31,6 +33,18 @@ namespace MovieRentalsAPI.Controllers
         {
             var customer = await _repository.Get(id);
             return _mapper.Map<Customer, CustomerDto>(customer);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Remove(int id)
+        {
+            var customer = await _repository.Get(id);
+            if (customer == null) return BadRequest();
+
+            _repository.Delete(customer);
+            await _unitOfWork.CompleteAsync();
+
+            return Ok();
         }
     }
 }

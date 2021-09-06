@@ -14,6 +14,11 @@ namespace MovieRentalsAPI.Persistence
             this._context = context;
         }
 
+        public void Delete(Customer customer)
+        {
+            _context.Customers.Remove(customer);
+        }
+
         public async Task<Customer> Get(int id)
         {
             return await _context.Customers.FindAsync(id);

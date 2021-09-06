@@ -14,6 +14,11 @@ namespace MovieRentalsAPI.Persistence
             this._context = context;
         }
 
+        public async Task<Customer> Get(int id)
+        {
+            return await _context.Customers.FindAsync(id);
+        }
+
         public async Task<IEnumerable<Customer>> GetAll()
         {
             return await _context.Customers.ToListAsync();

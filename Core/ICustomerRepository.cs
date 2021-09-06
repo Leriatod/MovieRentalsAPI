@@ -7,5 +7,6 @@ namespace MovieRentalsAPI.Core
     public interface ICustomerRepository
     {
         Task<IEnumerable<Customer>> GetAll();
+        Task<Customer> Get(int id);
     }
 }

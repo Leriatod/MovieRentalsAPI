@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MovieRentalsAPI.Controllers.Dtos;
 using MovieRentalsAPI.Core;
 using MovieRentalsAPI.Core.Models;
@@ -25,6 +24,13 @@ namespace MovieRentalsAPI.Controllers
         {
             var customers = await _repository.GetAll();
             return _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerDto>>(customers);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<CustomerDto> Get(int id)
+        {
+            var customer = await _repository.Get(id);
+            return _mapper.Map<Customer, CustomerDto>(customer);
         }
     }
 }

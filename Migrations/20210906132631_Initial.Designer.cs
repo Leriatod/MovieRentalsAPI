@@ -8,7 +8,7 @@ using MovieRentalsAPI.Persistence;
 
 namespace MovieRentalsAPI.Migrations
 {
-    [DbContext(typeof(MovieRentalsContext))]
+    [DbContext(typeof(MovieRentalsDbContext))]
     [Migration("20210906132631_Initial")]
     partial class Initial
     {

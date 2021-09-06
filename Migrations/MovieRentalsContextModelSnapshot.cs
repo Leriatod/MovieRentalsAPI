@@ -7,7 +7,7 @@ using MovieRentalsAPI.Persistence;
 
 namespace MovieRentalsAPI.Migrations
 {
-    [DbContext(typeof(MovieRentalsContext))]
+    [DbContext(typeof(MovieRentalsDbContext))]
     partial class MovieRentalsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

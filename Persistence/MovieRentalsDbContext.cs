@@ -3,10 +3,10 @@ using MovieRentalsAPI.Core.Models;
 
 namespace MovieRentalsAPI.Persistence
 {
-    public class MovieRentalsContext : DbContext
+    public class MovieRentalsDbContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
-        public MovieRentalsContext(DbContextOptions<MovieRentalsContext> options) 
-            : base(options) {}
+        public MovieRentalsDbContext(DbContextOptions<MovieRentalsDbContext> options)
+            : base(options) { }
     }
 }

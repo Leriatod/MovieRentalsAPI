@@ -30,6 +30,7 @@ namespace MovieRentalsAPI
         {
             services.AddDbContext<MovieRentalsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MovieRentalsAPI", Version = "v1" });

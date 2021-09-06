@@ -62,5 +62,26 @@ namespace MovieRentalsAPI.Controllers
 
             return Ok(_mapper.Map<Customer, CustomerDto>(customer));
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, [FromBody] CustomerDto customerDto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var customer = await _repository.Get(id);
+
+            if (customer == null)
+                return NotFound();
+
+            _mapper.Map<CustomerDto, Customer>(customerDto, customer);
+            customer.Id = id;
+
+            await _unitOfWork.CompleteAsync();
+
+            customer = await _repository.Get(customer.Id);
+
+            return Ok(_mapper.Map<Customer, CustomerDto>(customer));
+        }
     }
 }

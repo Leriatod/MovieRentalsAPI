@@ -7,6 +7,7 @@ namespace MovieRentalsAPI.Persistence
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
         public MovieRentalsDbContext(DbContextOptions<MovieRentalsDbContext> options)
             : base(options) { }
     }

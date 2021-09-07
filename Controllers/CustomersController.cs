@@ -64,7 +64,7 @@ namespace MovieRentalsAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] CustomerDto customerDto)
+        public async Task<IActionResult> Update(int id, [FromBody] CustomerDto customerDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

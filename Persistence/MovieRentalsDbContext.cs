@@ -10,5 +10,10 @@ namespace MovieRentalsAPI.Persistence
         public DbSet<Rental> Rentals { get; set; }
         public MovieRentalsDbContext(DbContextOptions<MovieRentalsDbContext> options)
             : base(options) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Rental>().HasKey(r => new { r.CustomerId, r.MovieId });
+        }
     }
 }

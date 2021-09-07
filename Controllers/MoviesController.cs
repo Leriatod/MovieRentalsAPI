@@ -9,7 +9,7 @@ using MovieRentalsAPI.Core.Models;
 namespace MovieRentalsAPI.Controllers
 {
     [Route("/api/movies")]
-    public class MoviesController
+    public class MoviesController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly IMovieRepository _repository;
@@ -24,6 +24,13 @@ namespace MovieRentalsAPI.Controllers
         {
             var movies = await _repository.GetAll();
             return _mapper.Map<IEnumerable<Movie>, IEnumerable<MovieDto>>(movies);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<MovieDto> Get(int id)
+        {
+            var movie = await _repository.Get(id);
+            return _mapper.Map<Movie, MovieDto>(movie);
         }
     }
 }

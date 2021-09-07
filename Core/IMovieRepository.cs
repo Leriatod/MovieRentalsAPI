@@ -7,5 +7,6 @@ namespace MovieRentalsAPI.Core
     public interface IMovieRepository
     {
         Task<IEnumerable<Movie>> GetAll();
+        Task<Movie> Get(int id);
     }
 }

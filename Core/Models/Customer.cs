@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieRentalsAPI.Core.Models
@@ -14,5 +16,11 @@ namespace MovieRentalsAPI.Core.Models
         [Required]
         [StringLength(255)]
         public string PhoneNumber { get; set; }
+        public ICollection<Rental> Rentals { get; set; }
+
+        public Customer()
+        {
+            Rentals = new Collection<Rental>();
+        }
     }
 }

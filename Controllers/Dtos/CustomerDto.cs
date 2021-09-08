@@ -1,3 +1,5 @@
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieRentalsAPI.Controllers.Dtos
@@ -14,5 +16,11 @@ namespace MovieRentalsAPI.Controllers.Dtos
         [Required]
         [StringLength(255)]
         public string PhoneNumber { get; set; }
+        public ICollection<RentalDto> Rentals { get; set; }
+
+        public CustomerDto()
+        {
+            Rentals = new Collection<RentalDto>();
+        }
     }
 }

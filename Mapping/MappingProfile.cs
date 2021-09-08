@@ -21,6 +21,7 @@ namespace MovieRentalsAPI.Mapping
         {
             CreateMap<Customer, CustomerDto>();
             CreateMap<Movie, MovieDto>();
+            CreateMap<Rental, RentalDto>();
         }
     }
 }

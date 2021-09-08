@@ -26,7 +26,10 @@ namespace MovieRentalsAPI.Persistence
 
         public async Task<Customer> Get(int id)
         {
-            return await _context.Customers.FindAsync(id);
+            return await _context.Customers
+                .Include(c => c.Rentals)
+                    .ThenInclude(r => r.Movie)
+                .SingleOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Customer>> GetAll()

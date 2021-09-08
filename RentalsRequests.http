@@ -2,7 +2,7 @@ POST http://localhost:5000/api/rentals/ HTTP/1.1
 content-type: application/json
 
 {
-    "customerId": 2,
-    "movieIds": [1, 2, 5],
-    "returnDate": "2021-10-09T22:18:26.625Z"
+    "customerId": 3,
+    "movieIds": [5, 6],
+    "returnDate": "2021-10-10T22:18:26.625Z"
 }

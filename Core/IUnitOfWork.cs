@@ -4,6 +4,6 @@ namespace MovieRentalsAPI.Core
 {
     public interface IUnitOfWork
     {
-        Task CompleteAsync();
+        Task Complete();
     }
 }

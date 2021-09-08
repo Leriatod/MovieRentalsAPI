@@ -27,7 +27,9 @@ namespace MovieRentalsAPI
             services.AddDbContext<MovieRentalsDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IRentalRepository, RentalRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddSwaggerGen(c =>

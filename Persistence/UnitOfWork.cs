@@ -10,7 +10,7 @@ namespace MovieRentalsAPI.Persistence
         {
             _context = context;
         }
-        public async Task CompleteAsync()
+        public async Task Complete()
         {
             await _context.SaveChangesAsync();
         }

@@ -42,7 +42,7 @@ namespace MovieRentalsAPI.Controllers
             if (customer == null) return NotFound();
 
             _repository.Delete(customer);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.Complete();
 
             return Ok();
         }
@@ -56,7 +56,7 @@ namespace MovieRentalsAPI.Controllers
             var customer = _mapper.Map<CustomerDto, Customer>(customerDto);
 
             _repository.Add(customer);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.Complete();
 
             customer = await _repository.Get(customer.Id);
 
@@ -77,7 +77,7 @@ namespace MovieRentalsAPI.Controllers
             _mapper.Map<CustomerDto, Customer>(customerDto, customer);
             customer.Id = id;
 
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.Complete();
 
             customer = await _repository.Get(customer.Id);
 

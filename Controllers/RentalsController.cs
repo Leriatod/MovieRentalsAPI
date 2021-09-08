@@ -2,31 +2,40 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieRentalsAPI.Controllers.Dtos;
+using MovieRentalsAPI.Core;
 using MovieRentalsAPI.Core.Models;
-using MovieRentalsAPI.Persistence;
 
 namespace MovieRentalsAPI.Controllers
 {
     [Route("/api/rentals")]
     public class RentalsController : ControllerBase
     {
-        private readonly MovieRentalsDbContext _context;
-        public RentalsController(MovieRentalsDbContext context)
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IMovieRepository _movieRepository;
+        private readonly IRentalRepository _rentalRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        public RentalsController(ICustomerRepository customerRepository,
+                                 IMovieRepository movieRepository,
+                                 IRentalRepository rentalRepository,
+                                 IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _customerRepository = customerRepository;
+            _movieRepository = movieRepository;
+            _rentalRepository = rentalRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost]
         public async Task<IActionResult> RentMoviesForCustomer([FromBody] CustomerRentedMoviesDto customerRentedMoviesDto)
         {
-            var customer = await _context.Customers.FindAsync(customerRentedMoviesDto.CustomerId);
+            var customer = await _customerRepository.Get(customerRentedMoviesDto.CustomerId);
 
             if (customer == null)
                 return NotFound("Customer not found.");
 
             foreach (var movieId in customerRentedMoviesDto.MovieIds)
             {
-                var movie = await _context.Movies.FindAsync(movieId);
+                var movie = await _movieRepository.Get(movieId);
 
                 if (movie == null)
                     return NotFound("Movie not found.");
@@ -36,7 +45,7 @@ namespace MovieRentalsAPI.Controllers
 
                 movie.NumberInStock--;
 
-                _context.Rentals.Add(new Rental()
+                _rentalRepository.Add(new Rental()
                 {
                     RentDate = DateTime.Now,
                     ReturnDate = customerRentedMoviesDto.ReturnDate,
@@ -44,7 +53,7 @@ namespace MovieRentalsAPI.Controllers
                     MovieId = movieId,
                 });
             }
-            await _context.SaveChangesAsync();
+            await _unitOfWork.Complete();
             return Ok();
         }
     }

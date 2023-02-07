@@ -14,7 +14,8 @@ namespace MovieRentalsAPI.Mapping
 
         private void CreateDtosToDomainMappings()
         {
-            CreateMap<CustomerDto, Customer>();
+            CreateMap<CustomerDto, Customer>()
+                .ForMember(x => x.Rentals, opt => opt.Ignore());
         }
 
         private void CreateDomainToDtosMappings()

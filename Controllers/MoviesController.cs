@@ -28,10 +28,14 @@ namespace MovieRentalsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<MovieDto> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var movie = await _repository.Get(id);
-            return _mapper.Map<Movie, MovieDto>(movie);
+
+            if (movie == null)
+                return NotFound("Movie not found!");
+
+            return Ok(_mapper.Map<Movie, MovieDto>(movie));
         }
     }
 }

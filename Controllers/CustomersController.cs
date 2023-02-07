@@ -30,17 +30,23 @@ namespace MovieRentalsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<CustomerDto> Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var customer = await _repository.Get(id);
-            return _mapper.Map<Customer, CustomerDto>(customer);
+
+            if (customer == null)
+                return NotFound("Customer not found!");
+
+            return Ok(_mapper.Map<Customer, CustomerDto>(customer));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
             var customer = await _repository.Get(id);
-            if (customer == null) return NotFound();
+
+            if (customer == null)
+                return NotFound("Customer not found!");
 
             _repository.Delete(customer);
 
@@ -75,9 +81,9 @@ namespace MovieRentalsAPI.Controllers
             var customer = await _repository.Get(id);
 
             if (customer == null)
-                return NotFound();
+                return NotFound("Customer not found!");
 
-            _mapper.Map<CustomerDto, Customer>(customerDto, customer);
+            _mapper.Map(customerDto, customer);
             customer.Id = id;
 
             await _unitOfWork.Complete();

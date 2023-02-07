@@ -1,4 +1,5 @@
 using System;
+
 namespace MovieRentalsAPI.Core.Models
 {
     public class Rental

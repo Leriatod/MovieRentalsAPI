@@ -9,6 +9,7 @@ namespace MovieRentalsAPI.Persistence
     public class CustomerRepository : ICustomerRepository
     {
         private readonly MovieRentalsDbContext _context;
+
         public CustomerRepository(MovieRentalsDbContext context)
         {
             _context = context;

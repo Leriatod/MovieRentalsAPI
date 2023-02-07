@@ -13,6 +13,7 @@ namespace MovieRentalsAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IMovieRepository _repository;
+
         public MoviesController(IMovieRepository repository, IMapper mapper)
         {
             _repository = repository;

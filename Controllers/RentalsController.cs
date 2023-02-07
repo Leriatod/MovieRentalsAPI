@@ -14,6 +14,7 @@ namespace MovieRentalsAPI.Controllers
         private readonly IMovieRepository _movieRepository;
         private readonly IRentalRepository _rentalRepository;
         private readonly IUnitOfWork _unitOfWork;
+
         public RentalsController(ICustomerRepository customerRepository,
                                  IMovieRepository movieRepository,
                                  IRentalRepository rentalRepository,
@@ -53,7 +54,9 @@ namespace MovieRentalsAPI.Controllers
                     MovieId = movieId,
                 });
             }
+
             await _unitOfWork.Complete();
+
             return Ok();
         }
     }

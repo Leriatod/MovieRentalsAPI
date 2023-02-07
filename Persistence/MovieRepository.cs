@@ -9,6 +9,7 @@ namespace MovieRentalsAPI.Persistence
     public class MovieRepository : IMovieRepository
     {
         private readonly MovieRentalsDbContext _context;
+
         public MovieRepository(MovieRentalsDbContext context)
         {
             _context = context;

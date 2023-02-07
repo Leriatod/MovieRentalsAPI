@@ -14,6 +14,7 @@ namespace MovieRentalsAPI.Controllers
         private readonly ICustomerRepository _repository;
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
+
         public CustomersController(ICustomerRepository repository, IMapper mapper, IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -42,6 +43,7 @@ namespace MovieRentalsAPI.Controllers
             if (customer == null) return NotFound();
 
             _repository.Delete(customer);
+
             await _unitOfWork.Complete();
 
             return Ok();
@@ -56,6 +58,7 @@ namespace MovieRentalsAPI.Controllers
             var customer = _mapper.Map<CustomerDto, Customer>(customerDto);
 
             _repository.Add(customer);
+
             await _unitOfWork.Complete();
 
             customer = await _repository.Get(customer.Id);
